@@ -1,0 +1,216 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="/src/core/hotkeys.min.css">
+
+      <title>Made in Abyss Reader</title>
+      <meta charset="utf-8" name="Made in Abyss Manga" description="Unoffical backup for the english translation of Made in Abyss Manga">
+      <meta property="og:image" content="http://madeinabyss.me/src/tnktk.png">
+      <meta property="og:description" content="Read Made in Abyss chapters in English or Japanese. Or join the best Made in Abyss Community today!">
+      <meta property="og:title" content="Made in Abyss Manga Reader • madeinabyss.me">
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style type="text/css">
+        body {
+        }
+        
+        @media only screen and (min-width: 601px){
+          #readerContainer{
+            padding-bottom: 2.5rem;
+          }
+        }
+
+        .card-image .card-title{
+            background: rgba(0,0,0,0.5);
+            width: 100%;
+            padding: .5em 1em;
+            line-height: normal;
+        }
+        .card .card-title {
+            font-size: 24px;
+            font-weight: 300;
+            font-size: larger;
+
+        }
+        .title-sub {
+            font-size: small;
+        }
+
+        nav .brand-logo {
+            font-size: x-large !important;
+        }
+
+        .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+            transition: all linear 0.5s;
+            display: block !important;
+        }
+
+        .animate-show.ng-hide-add.ng-hide-add-active, .animate-show.ng-hide-remove {
+            opacity: 0;
+        }
+
+        .animate-show.ng-hide-add, .animate-show.ng-hide-remove.ng-hide-remove-active {
+            opacity: 1;
+        }
+        #page-panel {
+            width: 100%;
+        }
+
+        .controls {
+          display: flex;
+          flex-flow: row;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          padding-left: 4rem;
+          padding-right: 4rem;
+          padding-bottom: .5rem;
+          padding-top: .5rem;
+          margin-bottom: 0px;
+        }
+
+        .controls-mobile {
+          display: flex;
+          flex-flow: row;
+          width: 100%;
+          padding-left: .5rem;
+          padding-right: .5rem;
+          padding-bottom: .5rem;
+          padding-top: .5rem;
+          margin-bottom: 0px;
+        }
+
+        .card .card-content {
+            padding: 12px;
+            border-radius: 0 0 2px 2px;
+        }
+
+        .control-button.right {
+            margin-left: auto;
+        }
+
+        .control-button {
+            margin-left: .25rem;
+            margin-right: .25rem;
+        }
+
+        .row {
+          margin-bottom: 0px;
+        }
+
+        .btn {
+          padding: 0 1.5rem;
+        }
+      </style>
+    </head>
+
+    <body ng-app="mangaReader" ng-controller="mangaReaderController" style="background: rgb(72, 75, 81); background-size: cover;">
+      <nav class="z-depth-0" style="background: transparent;">
+        <div class="nav-wrapper">
+            <!--<span style="color: rgb(243, 159, 0);">made</span><span style="color: rgb(76, 52, 14)">in</span><span style="color: rgb(234, 82, 17">abyss</span>.me-->
+          <img class="responsive-img" style="height: 32px; margin: 1em 0em 0.5em 1em;" src="/src/tnktk.png">
+          <a href="/" class="brand-logo" style="padding-left: 0.2em"> <span style="color: rgb(243, 159, 0);">made</span><span style="color: rgb(76, 52, 14)">in</span><span style="color: rgb(234, 82, 17">abyss</span>.me</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="https://discordapp.com/invite/gNMRQkk" style="max-height: 32px;"><span class="icon"><i class="fab fa-discord"></i></span> Chat with us!</a></li>
+            <li><a href="http://noku.pw" class="button is-primary is-inverted" style="max-height: 64px;">
+              <span class="icon">
+                <i class="fab fa-firefox"></i>
+              </span>
+              <span>noku.pw</span>
+            </a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div id="readerContainer" class="container" style="width: {{zoomLevel}}vw;" ng-cloak>
+        <div id="readerArea" class="card">
+          <div class="card-content row">
+            <div class="input-field col s12">
+              <select id="jmp" ng-model="jumpchapter" onchange="navigateChapter()">
+                <option ng-repeat="chapterN in chapters" value="{{chapterN.chapter}}" ng-selected="{{chapterN.chapter == mangaData.chapter}}">Volume {{chapterN.volume}} - Chapter {{chapterN.chapter}}: {{chapterN.title}}</option>
+              </select>
+              <label ng-hide="singlePageMode" class="right">Page {{currentPage}}/{{totalPages}} <span ng-hide="doneLoading">(Preloading Pages..)</span></label>
+            </div>
+
+            <!--<span class="card-title"><b>Chapter {{chapter}}: {{mangaData.title}}</b> [{{currentPage}}/{{totalPages}}]</span>-->
+              <div class="progress" ng-hide="doneLoading">
+                  <div class="determinate" style="width: {{percentLoaded}}%"></div>
+              </div>
+              <div class="card-panel teal" ng-show="mixTape" ng-cloak>
+                <span class="white-text">This chapter is hosted on mixtape.moe, loading of images may be slow.
+                </span>
+              </div>
+            <img id="page-panel" class="responsive-img" ng-click="nextPage()" ng-src="{{pageLink || '//:0' }}" ng-hide="singlePageMode">
+            <div id="single-page-panel" class="" ng-show="singlePageMode">
+            </div>
+            <div class="controls-mobile" ng-show="singlePageMode">
+                <div class="control-button"><button class="btn tooltipped" data-tooltip="Previous Chapter" data-position="top"  ng-click="prevChapter()" ng-disabled="mangaData.prev_chapter == 0"><i class="fas fa-angle-double-left"></i></button></div>
+                <div class="control-button right"><button class="btn tooltipped" data-tooltip="Next Chapter" data-position="top"  ng-click="nextChapter()" ng-disabled="mangaData.next_chapter == 0"><i class="fas fa-angle-double-right"></i></button></div>
+              </div>
+          </div>
+
+
+          <div class="controls-mobile hide-on-med-and-up">
+            <div class="control-button" ng-hide="singlePageMode">
+              <button class="btn tooltipped" data-tooltip="Previous Page" data-position="top" ng-click="prevPage()" ng-disabled="prevDisabled"><i class="fas fa-angle-left"></i></button>
+            </div>
+            <div class="control-button">
+              <button class="btn tooltipped" data-tooltip="Zoom Out" data-position="top"  ng-click="zoomOut()" ng-disabled="zOutDisable"><span class="icon"><i class="fas fa-search-minus"></i></span></button>
+            </div>
+            <div class="control-button">
+              <button class="btn tooltipped" data-tooltip="Zoom In" data-position="top"  ng-click="zoomIn()" ng-disabled="zInDisable"><span class="icon"><i class="fas fa-search-plus"></i></span></button>
+            </div>
+            <div class="control-button" ng-hide="singlePageMode">
+              <button class="btn tooltipped" data-tooltip="Single Page Mode" data-position="top"  ng-click="makeSinglePageMode()" ><span class="icon"><i class="far fa-image"></i></span></button>
+            </div>
+            <div class="control-button" ng-show="singlePageMode">
+              <button class="btn tooltipped" data-tooltip="Multi Page Mode" data-position="top"  ng-click="makeMultiPageMode()" ><span class="icon"><i class="far fa-images"></i></span></button>
+            </div>
+            <div class="control-button right" ng-hide="singlePageMode"><button class="btn tooltipped" data-tooltip="Next Page" data-position="top"  ng-click="nextPage()" ng-disabled="nextDisabled"><i class="fas fa-angle-right"></i></button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls hide-on-small-only">
+        <div class="control-button" ng-hide="singlePageMode">
+          <button class="btn tooltipped" data-tooltip="Previous Page" data-position="top" ng-click="prevPage()" ng-disabled="prevDisabled"><i class="fas fa-angle-left"></i></button>
+        </div>
+        <div class="control-button">
+          <button class="btn tooltipped" data-tooltip="Zoom Out" data-position="top"  ng-click="zoomOut()" ng-disabled="zOutDisable"><span class="icon"><i class="fas fa-search-minus"></i></span></button>
+        </div>
+        <div class="control-button">
+          <button class="btn tooltipped" data-tooltip="Zoom In" data-position="top"  ng-click="zoomIn()" ng-disabled="zInDisable"><span class="icon"><i class="fas fa-search-plus"></i></span></button>
+        </div>
+        <div class="control-button" ng-hide="singlePageMode">
+          <button class="btn tooltipped" data-tooltip="Single Page Mode" data-position="top"  ng-click="makeSinglePageMode()"><span class="icon"><i class="far fa-image"></i></span></button>
+        </div>
+        <div class="control-button" ng-show="singlePageMode">
+          <button class="btn tooltipped" data-tooltip="Multi Page Mode" data-position="top"  ng-click="makeMultiPageMode()"><span class="icon"><i class="far fa-images"></i></span></button>
+        </div>
+        <div class="control-button"><button class="btn tooltipped" data-tooltip="Previous Chapter" data-position="top"  ng-click="prevChapter()" ng-disabled="mangaData.prev_chapter == 0"><i class="fas fa-angle-double-left"></i></button></div>
+        <div class="control-button"><button class="btn tooltipped" data-tooltip="Next Chapter" data-position="top"  ng-click="nextChapter()" ng-disabled="mangaData.next_chapter == 0"><i class="fas fa-angle-double-right"></i></button></div>
+        <div class="control-button right" ng-hide="singlePageMode"><button class="btn tooltipped" data-tooltip="Next Page" data-position="top"  ng-click="nextPage()" ng-disabled="nextDisabled"><i class="fas fa-angle-right"></i></button></div>
+      </div>
+
+
+      <script src="/src/core/reader.js"></script>
+      <script src="/src/core/hotkeys.min.js"></script>
+      <script src="/src/core/preloader.js"></script>
+      <script type="text/javascript">
+        var navigateChapter = function () {
+          window.location.hash = "chapter=" + $("#jmp").val();
+          location.reload();
+        }
+      </script>
+
+    </body>
+</html>

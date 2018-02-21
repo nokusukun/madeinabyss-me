@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="description" content="Read Made in Abyss chapters in English or Japanese">
+    <meta name="keywords" content="Made in Abyss, miabyss, manga">
+    <!-- Hey mom! I changed the site! My changes should reflect now the little piece of shit. -->
+    <meta name="google-site-verification" content="bdrzKqHWYstcXhsJ4fjCbig5zM0B94pEwZi2eCGY5fE" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+    <title>Made in Abyss - Unofficial Translations</title>
+    <meta charset="utf-8" name="Made in Abyss Manga | Anime | Read Online | Community" description="Unoffical english translations of Made in Abyss Manga. Read Now!">
+    <meta property="og:image" content="http://madeinabyss.me/src/tnktk.png">
+    <meta property="og:description" content="Read Made in Abyss chapters in English or Japanese. Or join the best Made in Abyss Community today!">
+    <meta property="og:title" content="Made in Abyss Community Hub • madeinabyss.me">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+        body {}
+        
+        .card.medium {
+            height: 410px;
+        }
+        
+        .card.small .card-image,
+        .card.medium .card-image,
+        .card.large .card-image {
+            max-height: 70%;
+            overflow: hidden;
+        }
+        
+        .card-image .card-title {
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            padding: .5em 1em;
+            line-height: normal;
+        }
+        
+        .card .card-title {
+            font-size: 24px;
+            font-weight: 300;
+            font-size: larger;
+        }
+        
+        .title-sub {
+            font-size: small;
+        }
+        
+        .title-micro {
+            font-size: small;
+        }
+        
+        nav .brand-logo {
+            font-size: x-large !important;
+        }
+        
+        iframe {
+            width: -webkit-fill-available;
+        }
+        
+        .tabs .indicator {
+            background-color: #3b94d9;
+        }
+        .nav-wrapper ul li {
+            margin-right: .3rem;
+            margin-left: .3rem;
+        }
+    </style>
+</head>
+
+<body class="grey lighten-4" ng-app="miaManga" ng-controller="chapterController">
+    <div class="z-depth-3" style="background: url(/src/mia.jpg); background-size: 100vw;     background-position-y: -100px;">
+        <nav class="z-depth-0" style="background: transparent;">
+            <div class="nav-wrapper">
+                <!--<span style="color: rgb(243, 159, 0);">made</span><span style="color: rgb(76, 52, 14)">in</span><span style="color: rgb(234, 82, 17">abyss</span>.me-->
+                <img class="responsive-img hide-on-med-and-down" style="height: 32px; margin: 1em 0em 0.5em 1em;" src="/src/tnktk.png">
+                <a href="#" class="brand-logo" style="padding-left: 0.2em"> <span style="color: rgb(243, 159, 0);">made</span><span style="color: rgb(76, 52, 14)">in</span><span style="color: rgb(234, 82, 17">abyss</span>.me</a>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><img class="responsive-img" style="height: 32px; margin: 1em 0em 0.5em 1em;" src="/src/tnktk.png"></a>
+                <ul id="nav-desktop" class="hide-on-med-and-down right">
+                    <li>
+                        <div class="switch" style="max-height: 64px;">
+                            <label>
+                                English 『英語』
+                                <input id="ja-toggle" ng-model="siteJa" ng-change="setLanguage()" type="checkbox">
+                                <span class="lever"></span> Japanese　『日本語』
+                            </label>
+                        </div>
+                    </li>
+                    <li><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Help support this site!', '#46b798', 'W7W08921');kofiwidget2.draw();</script> </li>   
+                    <li>
+                        <a href="http://noku.pw" class="button is-primary is-inverted" style="max-height: 64px;">
+                            <span class="icon">
+                      <i class="fab fa-firefox"></i>
+                    </span>
+                            <span>noku.pw</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul id="nav-mobile" class="side-nav">
+                    <li>
+                        <div class="switch" style="max-height: 64px;">
+                            <label>
+                                English 『英語』
+                                <input id="ja-toggle" ng-model="siteJa" ng-change="setLanguage()" type="checkbox">
+                                <span class="lever"></span> Japanese　『日本語』
+                            </label>
+                        </div>
+                    </li>
+                    <li><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Help support this site!', '#46b798', 'W7W08921');kofiwidget2.draw();</script> </li>   
+                    <li>
+                        <a href="http://noku.pw" class="button is-primary is-inverted" style="max-height: 64px;">
+                            <span class="icon">
+                      <i class="fab fa-firefox"></i>
+                    </span>
+                            <span>noku.pw</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="row valign-wrapper" style="min-height: 30vh; padding: 16px 32px;" ng-cloak>
+            <a href="/m?chapter={{chapters[0].chapter}}" style="margin-left: auto; margin-right: .5rem;">
+                <div class="card blue white-text hoverable" style="margin-left: auto; margin-right: .5rem;">
+                    <div class="card-content">
+                        <span class="card-title" ng-hide="siteJa"><b>Chapter {{chapters[0].chapter}}</b></span>
+                        <span class="card-title" ng-show="siteJa"><b>第{{chapters[0].chapter}}章</b></span>
+                        <p ng-hide="siteJa">Newest Chapter</p>
+                        <p ng-show="siteJa">最新の章</p>
+                    </div>
+
+                </div>
+            </a>
+            <a href="/reader" style="margin-left: .5rem; margin-right: auto;">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <span class="card-title" ng-hide="siteJa"><b>Chapter <span>{{lastChapter}}</span> [<span>{{lastPage}}</span>]</b>
+                        </span>
+                        <span class="card-title" ng-show="siteJa"><b>第{{lastChapter}}章 [<span>{{lastPage}}</span>]</b>
+                        </span>
+                        <p ng-hide="siteJa">Continue Reading</p>
+                        <p ng-show="siteJa">読み続けて</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row" style="min-height: 60vh; padding: 16px 32px;">
+        <div class="col s12" style="margin-left:auto; margin-right: auto">
+            <div class="progress" ng-hide="doneLoading">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+        <div class="col m12 l3">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card hoverable" onclick="$('#download').slideDown();" style="margin: 0px 0px;">
+                        <div class="card-content">
+                            <span class="card-title">
+                                    <span class="icon">
+                                        <i class="fas fa-cloud-download-alt"></i>
+                                    </span>
+                            <span class="card-title" ng-hide="siteJa">Download the Chapters!</span>
+                            <span class="card-title" ng-show="siteJa">ダウンロー!</span>
+                            </span>
+
+                            <div id="download" style="display: none;">
+                                <p ng-hide="siteJa">Join the Discord server and go to the <b>#releases</b> channel to get the latest releases by chapter or the whole thing!</p>
+                                <p ng-show="siteJa">ディスコに参加し、<b>#release</b>チャンネルに移動してダウンロードリンクを取得します。</p>
+                                <a href="https://discordapp.com/invite/gNMRQkk" class="btn">Join!</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col s12 blue-text" ng-show="doneLoading">
+                    <h5 ng-hide="siteJa">Chat with us!</h5>
+                    <h5 ng-show="siteJa">ディスコ</h5></div>
+                <div class="col s12 m6 l12">
+                    <iframe src="https://discordapp.com/widget?id=326627132895789058&theme=dark" height="500" allowtransparency="true" frameborder="0"></iframe>
+                </div>
+                <div class="hide-on-small-only col s12 m6 l12">
+                    <a class="twitter-timeline" data-height="500" href="https://twitter.com/tukushiA?ref_src=twsrc%5Etfw">Tweets by tukushiA</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+
+                <div class="hide-on-small-only col s12 m6 l12">
+                    <a class="twitter-timeline" data-height="500" href="https://twitter.com/miabyss_anime?ref_src=twsrc%5Etfw">Tweets by miabyss_anime</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+                <div class="hide-on-small-only col s12 m6 l12">
+                    <a class="twitter-timeline" data-height="500" href="https://twitter.com/miadiscord?ref_src=twsrc%5Etfw">Tweets by Miabyss Discord</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </div>
+        </div>
+
+        <div class="col m12 l9" ng-cloak>
+            <div class="row z-depth-3" ng-show="doneLoading">
+                <div class="col s12 white blue-text">
+                    <h5 ng-hide="siteJa">Chapters</h5>
+                    <h5 ng-show="siteJa">まんげの章</h5></div>
+                <div class="white col s12">
+                    <ul class="tabs">
+                        <li class="blue-text tab col s3"><a class="blue-text active" href="#english-chapters">English 『英語』</a></li>
+                        <li class="blue-text tab col s3"><a class="blue-text" href="#japanese-chapters">Japanese　『日本語』</a></li>
+                        <li class="blue-text tab col s3"><a class="blue-text" href="#misc-chapters">Misc</a></li>
+                    </ul>
+                </div>
+                <div id="english-chapters" class="col s12 row white">
+                    <div class="white col s12 m6 l3" ng-repeat="chapter in chapters | filter:chapter.lang = 'en'" ng-show="doneLoading">
+                        <a href="/m?chapter={{chapter.chapter}}">
+                            <div class="card hoverable tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{chapter.title}}">
+                                <div class="card-image">
+                                    <img src="{{chapter.cover}}" style="object-fit: cover; height: 300px">
+                                    <div class="card-title center" ng-hide="siteJa"><span class="title-micro truncate">Volume {{chapter.volume}}</span>Chapter {{chapter.chapter}}
+                                        <br><span class="title-sub truncate">{{chapter.title}}</span></div>
+
+                                    <div class="card-title center" ng-show="siteJa"><span class="title-micro truncate">第{{chapter.volume}}巻 </span>第{{chapter.chapter}}章
+                                        <br><span class="title-sub truncate">{{chapter.title}}</span></div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div id="japanese-chapters" class="col s12 white">
+                    <div class="white col s12 m6 l3" ng-repeat="chapter in chapters | filter:chapter.lang = 'ja'" ng-show="doneLoading">
+                        <a href="/m?chapter={{chapter.chapter}}">
+                            <div class="card hoverable tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{chapter.title}}">
+                                <div class="card-image">
+                                    <img src="{{chapter.cover}}" style="object-fit: cover; height: 300px">
+                                    <div class="card-title center" ng-hide="siteJa"><span class="title-micro truncate">Volume {{chapter.volume}}</span>Chapter {{chapter.chapter}}
+                                        <br><span class="title-sub truncate">{{chapter.title}}</span></div>
+
+                                    <div class="card-title center" ng-show="siteJa"><span class="title-micro truncate">第{{chapter.volume}}巻 </span>第{{chapter.chapter}}章
+                                        <br><span class="title-sub truncate">{{chapter.title}}</span></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div id="misc-chapters" class="col s12 white">
+                    <div class="white col s12 m6 l3" ng-repeat="chapter in chapters | filter:chapter.lang = 'etc'" ng-show="doneLoading">
+                        <a href="/m?chapter={{chapter.chapter}}">
+                            <div class="card hoverable tooltipped" data-position="bottom" data-delay="50" data-tooltip="{{chapter.title}}">
+                                <div class="card-image">
+                                    <img src="{{chapter.cover}}" style="object-fit: cover; height: 300px">
+                                    <div class="card-title center" ng-hide="siteJa"><span class="title-micro truncate">Volume {{chapter.volume}}</span>Chapter {{chapter.chapter}}
+                                        <br><span class="title-sub truncate">{{chapter.title}}</span></div>
+
+                                    <div class="card-title center" ng-show="siteJa"><span class="title-micro truncate">第{{chapter.volume}}巻 </span>第{{chapter.chapter}}章
+                                        <br><span class="title-sub truncate">{{chapter.title}}</span></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
+<script type="text/javascript">
+    var app = angular.module('miaManga', []);
+    app.controller('chapterController', function($scope, $http) {
+        console.log("Setting Page");
+        $scope.lastPage = localStorage.lastPage || 1;
+        $scope.lastChapter = localStorage.lastChapter || 1;
+        $scope.siteJa = localStorage.jaMode || false;
+        console.log($scope.siteJa);
+        $http.get("chapters")
+            .then(function(response) {
+                console.log(response.data);
+                $scope.chapters = response.data;
+                $scope.doneLoading = true;
+                $('.tooltipped').tooltip({
+                    delay: 50
+                });
+            });
+        $scope.setLanguage = function() {
+            localStorage.jaMode = $scope.siteJa;
+        }
+    });
+
+    $(document).ready(function() {
+        $("#ja-toggle").prop("checked", localStorage.jaMode || false);
+        $(".button-collapse").sideNav();
+    });
+
+</script>
+
+</html>
